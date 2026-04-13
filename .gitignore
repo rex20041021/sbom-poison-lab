@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# mitmproxy CA 私鑰與憑證（絕對不能洩漏）
+mitm_certs/
+
+# 漏洞資料庫檔案（太大 + 攻擊用毒化內容）
+*.tar.zst
+*.tar.zst.bak
+db_unpacked/
+db_original/
+vulnerability.db
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+desktop.ini

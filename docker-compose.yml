@@ -1,0 +1,21 @@
+services:
+  mitm-attacker:
+    build:
+      context: .
+      dockerfile: Dockerfile.mitm
+    container_name: mitm-v2
+    volumes:
+      - .:/app
+      # 固定憑證資料夾，避免每次重啟都產生新憑證導致受害者端報錯
+      - ./mitm_certs:/root/.mitmproxy
+    ports:
+      - "9997:8080"  # 代理連線埠口
+      - "8083:8081"  # Web 介面 (http://localhost:8083)
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 啟動指令：載入腳本、設定密碼、允許全域連線
+    command: >
+      mitmweb -s /app/attack_v2.py
+      --web-host 0.0.0.0
+      --set web_password=lab
+      --set block_global=false

@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install mitmproxy
+
+WORKDIR /app
+
+# 8080 是代理埠口，8083 是 Web 介面埠口
+EXPOSE 8080 8083
+
+# 預設啟動 mitmweb
+CMD ["mitmweb", "--web-host", "0.0.0.0"]
